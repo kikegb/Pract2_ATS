@@ -7,6 +7,7 @@ class MapReduce:
 
     def map(self, file_text):
         #Esto a lo mejor es split
+
         pass
 
     def sort(self):
