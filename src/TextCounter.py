@@ -12,9 +12,6 @@ def read_file(path):
     f.close()
     return lines
 
-def main(file_path):
-    mr = MapReduce(file_path)
-
 if __name__ == "__main__":
-    print("Number of cpu : ", mp.cpu_count())
-    main(sys.argv[1])
+    for file_num in range(1,len(sys.argv)):
+        MapReduce(sys.argv[file_num])

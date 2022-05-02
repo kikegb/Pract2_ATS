@@ -16,7 +16,7 @@ class MapReduce:
 
 
     def map(self):
-        p = Pool(4)
+        p = Pool()
         result = p.map(self.sort, self.file_content)
         for x, y in result:
             self.result.append(x)
