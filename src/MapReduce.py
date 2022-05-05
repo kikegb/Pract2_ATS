@@ -62,7 +62,7 @@ class MapReduce:
             self.result[k] = round((v / self.total_words) * 100, 2)
 
     def read_file(self, path):
-        f = open(path, 'r', encoding='utf-8')
+        f = open(path, 'r', encoding='latin-1')
         lines = f.readlines()
         f.close()
         return lines
