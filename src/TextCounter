@@ -1,3 +1,4 @@
 #!/bin/bash
 
+cp -r /data/* .
 python3 Main.py $@
