@@ -13,7 +13,7 @@ class MapReduce:
         self.calculatePercent()
         self.printResult()
 
-
+    """Funció map(): Crea els threads per a l'execució de sort()"""
     def map(self):
         p = Pool()
         result = p.map(self.sort, self.file_content)
@@ -21,6 +21,7 @@ class MapReduce:
             self.result.append(x)
             self.total_words += y
 
+    """Funció sort(): a partir d'un string, crea un diccionari amb la frequencia de paraules per lletra"""
     def sort(self, line):
         words = line.split(" ")
         letter_freq = {}
@@ -38,6 +39,8 @@ class MapReduce:
                             letter_freq[letter][0] += 1
         return letter_freq, total_words
 
+    """Funció shuffle(): uneix els resultats de map() a un únic diccionari amb clau=lletra i 
+    valor=llista de frequencies de la lletra a cada thread"""
     def shuffle(self):
         letter_freq = {}
         for x in self.result:
@@ -48,7 +51,7 @@ class MapReduce:
                     letter_freq[k] = v
         self.result = letter_freq
 
-
+    """Funció reduce(): suma dels valors de frqüencies per a cada lletra al diccionari del resultat de shuffle()"""
     def reduce(self):
         for k, v in self.result.items():
             letters_in_file = 0
@@ -56,16 +59,19 @@ class MapReduce:
                 letters_in_file += numbero
             self.result[k] = letters_in_file
 
+    """Funció calculatePercent(): calcula percentatges a partir del resultat de reduce() i el nombre total de paraules al fitxer"""
     def calculatePercent(self):
         for k, v in self.result.items():
             self.result[k] = round((v / self.total_words) * 100, 2)
 
+    """Funció per llegir el fitxer"""
     def read_file(self, path):
         f = open(path, 'r', encoding='latin-1')
         lines = f.readlines()
         f.close()
         return lines
 
+    """Funció per mostrar i formatejar el resultat per pantalla"""
     def printResult(self):
         print(self.file_path + ":")
         for k, v in self.result.items():
